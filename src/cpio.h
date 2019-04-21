@@ -1,3 +1,10 @@
+/*
+	cpio.h
+	Copyright (c) 2019, Valentin Debon
+
+	This file is part of the cpio repository
+	subject the BSD 3-Clause License, see LICENSE
+*/
 #ifndef CPIO_H
 #define CPIO_H
 

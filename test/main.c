@@ -1,3 +1,10 @@
+/*
+	main.c
+	Copyright (c) 2019, Valentin Debon
+
+	This file is part of the cpio repository
+	subject the BSD 3-Clause License, see LICENSE
+*/
 #include "cpio.h"
 
 #include <stdio.h>

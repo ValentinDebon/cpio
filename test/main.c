@@ -17,12 +17,13 @@
 int
 main(int argc,
 	char **argv) {
-	char *buffer = malloc(CPIO_ODC_HEADER_SIZE);
+	char *buffer = NULL;
 
 	while(true) {
 		struct cpio_stat cpiostat;
 		size_t headerposition = 0;
 
+		buffer = realloc(buffer, CPIO_ODC_HEADER_SIZE);
 		if(read(0, buffer, CPIO_ODC_HEADER_SIZE) != CPIO_ODC_HEADER_SIZE) {
 			break;
 		}
@@ -37,11 +38,19 @@ main(int argc,
 			cpiostat.cs_rdev, ctime(&cpiostat.cs_mtime), cpiostat.cs_namesize,
 			cpiostat.cs_filesize);
 
+		if(cpiostat.cs_namesize == 0) {
+			continue;
+		}
+
 		buffer = realloc(buffer, cpiostat.cs_namesize);
 		read(0, buffer, cpiostat.cs_namesize);
 		puts(buffer);
 		if(strcmp("TRAILER!!!", buffer) == 0) {
 			break;
+		}
+
+		if(cpiostat.cs_filesize == 0) {
+			continue;
 		}
 
 		buffer = realloc(buffer, cpiostat.cs_filesize);
